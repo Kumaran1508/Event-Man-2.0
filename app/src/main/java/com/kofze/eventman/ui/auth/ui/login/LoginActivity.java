@@ -53,8 +53,6 @@ public class LoginActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         init();
-
-
     }
 
     private void init() {
