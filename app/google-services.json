@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "896874175302",
+    "firebase_url": "https://eventman-01.firebaseio.com",
+    "project_id": "eventman-01",
+    "storage_bucket": "eventman-01.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:896874175302:android:5bdc63c52c407402bc2347",
+        "android_client_info": {
+          "package_name": "com.ask.eventman"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "896874175302-j13vt9338ve16tj2mmor62kjjvph1kna.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-Vxc9dZz5vYwTBvc3hpMG5_HEX9icWuA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "896874175302-j13vt9338ve16tj2mmor62kjjvph1kna.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:896874175302:android:513e455021b44747bc2347",
+        "android_client_info": {
+          "package_name": "com.kofze.eventman"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "896874175302-j13vt9338ve16tj2mmor62kjjvph1kna.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-Vxc9dZz5vYwTBvc3hpMG5_HEX9icWuA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "896874175302-j13vt9338ve16tj2mmor62kjjvph1kna.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
