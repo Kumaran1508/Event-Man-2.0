@@ -5,14 +5,14 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.auth.ui.login.LoginActivity"
-    android:weightSum="0"
+    tools:context=".ui.auth.LoginActivity"
+    android:weightSum="7"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_weight="0"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
         android:background="@drawable/blue_gradient"
         android:gravity="center">
 
@@ -32,7 +32,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0"
+        android:layout_weight="3"
         android:orientation="vertical"
         android:gravity="center_horizontal"
         android:translationZ="90dp"
@@ -74,10 +74,8 @@
                         android:layout_marginHorizontal="20dp"
                         android:layout_marginVertical="20dp"
                         app:boxBackgroundColor="#00000000"
-                        android:theme="@style/TextInoutlayout"
-                        app:startIconDrawable="@drawable/icon_person"
-                        app:errorEnabled="true"
-                        android:hint="Username">
+                        app:startIconDrawable="@drawable/email_icon"
+                        android:hint="email">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"

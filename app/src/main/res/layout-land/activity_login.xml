@@ -5,7 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.auth.ui.login.LoginActivity"
+    tools:context=".ui.auth.LoginActivity"
     android:weightSum="2"
     android:orientation="horizontal">
 

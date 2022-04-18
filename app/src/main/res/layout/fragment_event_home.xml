@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.events.EventHomeFragment"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginTop="5dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:scaleType="center"
+                android:id="@+id/ownerProfile"
+                android:src="@drawable/icon_person"/>
+
+            <TextView
+                android:id="@+id/owner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Event Organizer"
+                android:textColor="@color/primary"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Starts at"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:layout_weight="1"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Ends by"
+                android:gravity="center_horizontal"
+                android:textSize="16sp"
+                android:layout_weight="1"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:drawablePadding="5dp"
+                android:layout_weight="1"
+                android:id="@+id/startTime"
+                android:gravity="center_horizontal"
+                android:drawableTop="@drawable/ic_baseline_date_range_24"
+                android:drawableTint="@color/primary"
+                android:text="Date"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:drawablePadding="5dp"
+                android:layout_weight="1"
+                android:id="@+id/endTime"
+                android:gravity="center_horizontal"
+                android:drawableTop="@drawable/ic_baseline_date_range_24"
+                android:drawableTint="@color/primary"
+                android:text="Date"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="7"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:drawablePadding="5dp"
+                android:textAlignment="center"
+                android:drawableTint="@color/primary"
+                android:text="OFFLINE"
+                android:textSize="16sp"
+                android:drawableTop="@drawable/explore_icon"
+                android:id="@+id/eventMode"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:layout_marginHorizontal="10dp"
+                android:drawablePadding="5dp"
+                android:textAlignment="center"
+                android:drawableTint="@color/primary"
+                android:text="CONCERT"
+                android:textSize="16sp"
+                android:drawableTop="@drawable/explore_icon"
+                android:id="@+id/eventCategory"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:drawablePadding="5dp"
+                android:textAlignment="center"
+                android:drawableTint="@color/primary"
+                android:text="PUBLIC"
+                android:textSize="16sp"
+                android:drawableTop="@drawable/icon_visibility"
+                android:id="@+id/eventVisibility"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="Description"
+            android:textStyle="bold"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="20dp"
+            android:text="Description text"
+            android:textSize="16sp"
+            android:id="@+id/event_description"/>
+
+        <com.kofze.eventman.FocusedMapView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="20dp"
+            style="@style/Widget.Theme.EventMan.MyView"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            map:mapType="normal"
+            android:focusableInTouchMode="true"
+            android:screenReaderFocusable="true"
+            android:focusedByDefault="true"
+            android:id="@+id/event_location"/>
+
+        <!-- invite button       -->
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="20dp"
+            android:text="Invite"
+            android:textSize="16sp"
+            android:id="@+id/invite_button"/>
+
+    </LinearLayout>
+
+
+</ScrollView>
