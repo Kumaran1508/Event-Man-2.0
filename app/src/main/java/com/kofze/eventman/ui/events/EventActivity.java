@@ -23,10 +23,14 @@ public class EventActivity extends AppCompatActivity {
     private ViewPager2 viewPager;
     private Event event;
 
+    private TextView eventOwner;
+    private ImageView ownerProfilePic;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
+        getSupportActionBar().hide();
         
         init();
 
@@ -60,6 +64,9 @@ public class EventActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.event_tabs);
         viewPager = findViewById(R.id.event_view_pager);
 
+        eventOwner = findViewById(R.id.owner);
+        ownerProfilePic = findViewById(R.id.ownerProfile);
+
         //get event from intent
         event = (Event) getIntent().getParcelableExtra("event");
         try {
@@ -67,6 +74,8 @@ public class EventActivity extends AppCompatActivity {
             eventTitle.setText(event.getTitle());
             // Glide is used to load image from url
             Glide.with(this).load(event.getImage_url()).into(eventDp);
+            eventOwner.setText(event.getOwner());
+            Glide.with(getApplicationContext()).load(event.getOwnerProfileUrl()).into(ownerProfilePic);
         }catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Unable to fetch event data", Toast.LENGTH_SHORT).show();

@@ -11,31 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:layout_marginTop="5dp">
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="10dp"
-                android:scaleType="center"
-                android:id="@+id/ownerProfile"
-                android:src="@drawable/icon_person"/>
-
-            <TextView
-                android:id="@+id/owner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="Event Organizer"
-                android:textColor="@color/primary"
-                android:textSize="18dp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -184,9 +160,20 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginHorizontal="20dp"
-            android:text="Invite"
+            android:text="Send Invite"
             android:textSize="16sp"
             android:id="@+id/invite_button"/>
+
+        <!-- Join button -->
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="20dp"
+            android:text="Join"
+            android:backgroundTint="@color/green"
+            android:textSize="16sp"
+            android:id="@+id/join_button"/>
 
     </LinearLayout>
 

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,12 +18,19 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.kofze.eventman.FocusedMapView;
 import com.kofze.eventman.R;
 import com.kofze.eventman.datamodels.Event;
+import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 
 /**
@@ -33,16 +41,15 @@ import java.util.Locale;
 public class EventHomeFragment extends Fragment {
 
     private Event event;
-    private TextView eventOwner;
     private TextView startTime;
     private TextView endTime;
     private TextView eventMode;
     private TextView eventCategory;
     private TextView eventVisibility;
     private TextView eventDescription;
-    private ImageView ownerProfilePic;
     private FocusedMapView mapView;
     private Button inviteButton;
+    private Button joinButton;
 
 
     public EventHomeFragment() {
@@ -68,16 +75,16 @@ public class EventHomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View root =  inflater.inflate(R.layout.fragment_event_home, container, false);
 
-        eventOwner = root.findViewById(R.id.owner);
+
         startTime = root.findViewById(R.id.startTime);
         endTime = root.findViewById(R.id.endTime);
         eventMode = root.findViewById(R.id.eventMode);
         eventCategory = root.findViewById(R.id.eventCategory);
         eventVisibility = root.findViewById(R.id.eventVisibility);
         eventDescription = root.findViewById(R.id.event_description);
-        ownerProfilePic = root.findViewById(R.id.ownerProfile);
         mapView = root.findViewById(R.id.event_location);
         inviteButton = root.findViewById(R.id.invite_button);
+        joinButton = root.findViewById(R.id.join_button);
 
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(new OnMapReadyCallback() {
@@ -112,7 +119,7 @@ public class EventHomeFragment extends Fragment {
         super.onStart();
         mapView.onStart();
 
-        eventOwner.setText(event.getOwner());
+
         eventMode.setText(event.getEventMode().toString());
         eventCategory.setText(event.getEventCategory().toString());
         eventVisibility.setText(event.isPublic() ? "Public" : "Private");
@@ -127,8 +134,65 @@ public class EventHomeFragment extends Fragment {
         dateString = format.format(date);
         endTime.setText(dateString);
 
-        //glide to load the profile picture
-        Glide.with(getContext()).load(event.getOwnerProfileUrl()).into(ownerProfilePic);
+        Date currentDate = new Date();
+        if(currentDate.after(event.getStart_time().toDate())){
+            joinButton.setVisibility(View.GONE);
+        }
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("events").document(event.getId())
+                .collection("participants")
+                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if(documentSnapshot.exists()){
+                            joinButton.setEnabled(false);
+                            joinButton.setText("Joined");
+                        }
+                    }
+                });
+
+
+        joinButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                joinButton.setEnabled(false);
+                joinButton.setText("Joining...");
+
+                db.collection("events").document(event.getId())
+                        .collection("participants")
+                        .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                if (documentSnapshot.exists()) {
+                                    joinButton.setEnabled(false);
+                                    joinButton.setText("Joined");
+                                }
+                                else{
+                                    db.collection("events").document(event.getId())
+                                            .collection("participants")
+                                            .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                            .set(new HashMap<String,Object>()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+                                                    joinButton.setEnabled(false);
+                                                    joinButton.setText("Joined");
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull @NotNull Exception e) {
+                                                    joinButton.setEnabled(true);
+                                                    joinButton.setText("Join");
+                                                }
+                                            });
+                                }
+                            }
+                        });
+            }
+        });
+
 
     }
 

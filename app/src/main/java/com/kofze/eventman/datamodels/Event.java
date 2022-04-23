@@ -2,11 +2,14 @@ package com.kofze.eventman.datamodels;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import androidx.annotation.NonNull;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
-import com.google.firebase.firestore.GeoPoint;
-import com.google.firebase.firestore.PropertyName;
+import com.google.firebase.firestore.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Event implements Parcelable {
@@ -20,6 +23,11 @@ public class Event implements Parcelable {
     private String owner;
     @PropertyName("owner_profile_ur")
     private String ownerProfileUrl;
+
+
+    @PropertyName("owner_id")
+    private String ownerId;
+
     @PropertyName("description")
     private String description;
     @PropertyName("start_time")
@@ -38,7 +46,8 @@ public class Event implements Parcelable {
     @PropertyName("location")
     private GeoPoint location;
 
-    private List<User> attendees;
+
+    private List<String> attendees;
 
     protected Event(Parcel in) {
         title = in.readString();
@@ -89,6 +98,10 @@ public class Event implements Parcelable {
         }
     };
 
+    public Event(){
+
+    }
+
     public String getId() {
         return Id;
     }
@@ -97,10 +110,12 @@ public class Event implements Parcelable {
         Id = id;
     }
 
+    public String getOwnerId() {
+        return ownerId;
+    }
 
-
-    public Event(){
-
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getTitle() {
@@ -159,11 +174,11 @@ public class Event implements Parcelable {
         this.end_time = end_time;
     }
 
-    public List<User> getAttendees() {
+    public List<String> getAttendees() {
         return attendees;
     }
 
-    public void setAttendees(List<User> attendees) {
+    public void setAttendees(List<String> attendees) {
         this.attendees = attendees;
     }
 
@@ -197,6 +212,25 @@ public class Event implements Parcelable {
 
     public void setOwnerProfileUrl(String ownerProfileUrl) {
         this.ownerProfileUrl = ownerProfileUrl;
+    }
+
+    public void loadAttendees(){
+        if(attendees == null){
+            attendees = new ArrayList<>();
+        }
+        //load attendees from firebase
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("events").document(Id).collection("attendees").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot document : task.getResult()){
+                        attendees.add(document.getId());
+                    }
+                }
+            }
+        });
+
     }
 
 

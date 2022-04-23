@@ -304,6 +304,7 @@ public class CreateEventActivity extends AppCompatActivity implements OnMapReady
                     event.setDescription(eventDescription.getEditText().getText().toString());
                     event.setOwner(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
                     event.setOwnerProfileUrl(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString());
+                    event.setOwnerId(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
                     //upload EventDp to Firebase
 

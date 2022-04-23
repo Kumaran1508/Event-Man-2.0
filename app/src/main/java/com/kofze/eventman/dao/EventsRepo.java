@@ -58,6 +58,20 @@ public class EventsRepo {
         });
     }
 
-
+    // get events created by user with userId
+    public void getEventsbyUser(List<Event> events, DashboardEventsAdapter adapter, String userId){
+        firestore.collection("events").whereEqualTo("ownerId",userId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                events.clear();
+                for (DocumentSnapshot document : queryDocumentSnapshots){
+                    Event event = document.toObject(Event.class);
+                    event.setId(document.getId());
+                    events.add(event);
+                }
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
 
 }
