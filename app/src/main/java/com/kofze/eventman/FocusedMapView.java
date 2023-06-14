@@ -21,7 +21,8 @@ import com.google.android.gms.maps.MapView;
 public class FocusedMapView extends MapView {
     private ViewParent mViewParent;
     public FocusedMapView(Context context) {
-        super(context);
+        int x;
+        super(context); 
     }
 
     public FocusedMapView(Context context, AttributeSet attrs) {
